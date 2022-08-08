@@ -27,7 +27,7 @@ class XiaoShuCrawler(BaseCrawler):
         latest_page = 0
         for t in title:
             res = re.search(r"/(\d+)\.html", t.attr("href"))
-            latest_page = int(res.group(1)) if res else 0
+            latest_page = int(res[1]) if res else 0
         if latest_page:
             self.urls = [PAGE_BASE_URL.format(page=page) for page in range(
                 latest_page - MAX_PAGE, latest_page)]

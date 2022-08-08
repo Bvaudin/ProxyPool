@@ -26,16 +26,16 @@ class GoubanjiaCrawler(BaseCrawler):
                 attrib = tr.attrib
                 if 'style' in attrib and 'none' in  tr.attrib['style']:
                     continue
-                ip_str+= '' if not tr.text else tr.text
+                ip_str += tr.text or ''
             addr_split = ip_str.split(':')
-            if(len(addr_split) == 2):
+            if (len(addr_split) == 2):
                 host = addr_split[0]
                 port = addr_split[1]
-                yield Proxy(host=host, port=port)
             else:
                 port = trs[-1].text
                 host = ip_str.replace(port,'')
-                yield Proxy(host=host, port=port)
+
+            yield Proxy(host=host, port=port)
 
 
 if __name__ == '__main__':

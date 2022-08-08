@@ -92,7 +92,7 @@ class RedisClient(object):
         :param proxy: proxy
         :return: if exists, bool
         """
-        return not self.db.zscore(REDIS_KEY, proxy.string()) is None
+        return self.db.zscore(REDIS_KEY, proxy.string()) is not None
 
     def max(self, proxy: Proxy) -> int:
         """

@@ -25,8 +25,7 @@ class IPHaiCrawler(BaseCrawler):
             find_port = re.compile('<td>\s+(\d+)\s+</td>', re.S)
             re_port = find_port.findall(trs[s])
             for address, port in zip(re_ip_address, re_port):
-                proxy = Proxy(host=address.strip(), port=int(port.strip()))
-                yield proxy
+                yield Proxy(host=address.strip(), port=int(port.strip()))
 
 if __name__ == '__main__':
     crawler = IPHaiCrawler()
