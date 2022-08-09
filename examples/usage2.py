@@ -18,7 +18,7 @@ def getChinaIP(ip='127.0.0.1'):
     ip_info = reader.get(ip)
     geolite2.close()
     print(ip_info)
-    return True if ip_info['country']['iso_code'] == 'CN' else False
+    return ip_info['country']['iso_code'] == 'CN'
 
 
 
@@ -43,16 +43,40 @@ class CrawlThread(threading.Thread):
         headers['Pragma'] = 'no-cache'
         headers['Host'] = 'bb.cf08tp.cn'
         headers['x-forward-for'] = pure_ip_address
-        headers['Cookie'] = 'PHPSESSID={}'.format(
-            ''.join(str(uuid.uuid1()).split('-')))
+        headers['Cookie'] = f"PHPSESSID={''.join(str(uuid.uuid1()).split('-'))}"
         print(headers)
-        html = requests.get(headers=headers, url=targetUrl, proxies={
-                            "http": 'http://' + self.proxyip, "https": 'https://' + self.proxyip}, verify=False, timeout=2).content.decode()
+        html = requests.get(
+            headers=headers,
+            url=targetUrl,
+            proxies={
+                "http": f'http://{self.proxyip}',
+                "https": f'https://{self.proxyip}',
+            },
+            verify=False,
+            timeout=2,
+        ).content.decode()
+
         # 结束计时
         end = time.time()
         # 输出内容
-        print(threading.current_thread().getName() + "使用代理IP, 耗时 " + str(end - start) +
-              "毫秒 " + self.proxyip + " 获取到如下HTML内容：\n" + html + "\n*************")
+        print(
+            (
+                (
+                    (
+                        (
+                            (
+                                f"{threading.current_thread().getName()}使用代理IP, 耗时 {str(end - start)}"
+                                + "毫秒 "
+                            )
+                            + self.proxyip
+                        )
+                        + " 获取到如下HTML内容：\n"
+                    )
+                    + html
+                )
+                + "\n*************"
+            )
+        )
 
 # 获取代理IP的线程类
 

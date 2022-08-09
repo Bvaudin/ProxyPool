@@ -22,8 +22,7 @@ class IP3366Crawler(BaseCrawler):
         # \s * 匹配空格，起到换行作用
         re_ip_address = ip_address.findall(html)
         for address, port in re_ip_address:
-            proxy = Proxy(host=address.strip(), port=int(port.strip()))
-            yield proxy
+            yield Proxy(host=address.strip(), port=int(port.strip()))
 
 
 if __name__ == '__main__':

@@ -5,12 +5,11 @@ def is_valid_proxy(data):
     """
     check this string is within proxy format
     """
-    if data.__contains__(':'):
-        ip = data.split(':')[0]
-        port = data.split(':')[1]
-        return is_ip_valid(ip) and is_port_valid(port)
-    else:
+    if not data.__contains__(':'):
         return is_ip_valid(data)
+    ip = data.split(':')[0]
+    port = data.split(':')[1]
+    return is_ip_valid(ip) and is_port_valid(port)
 
 
 def is_ip_valid(ip):

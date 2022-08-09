@@ -20,7 +20,7 @@ def crawl(url, proxy):
     :param proxy: proxy, such as 8.8.8.8:8888
     :return: html
     """
-    proxies = {'http': 'http://' + proxy}
+    proxies = {'http': f'http://{proxy}'}
     return requests.get(url, proxies=proxies).text
 
 

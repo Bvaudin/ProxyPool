@@ -46,10 +46,9 @@ class ZhandayeCrawler(BaseCrawler):
         trs = doc('.cont br').items()
         for tr in trs:
             line = tr[0].tail
-            match = re.search(r'(\d+\.\d+\.\d+\.\d+):(\d+)', line)
-            if match:
-                host = match.group(1)
-                port = match.group(2)
+            if match := re.search(r'(\d+\.\d+\.\d+\.\d+):(\d+)', line):
+                host = match[1]
+                port = match[2]
                 yield Proxy(host=host, port=port)
 
 
